@@ -32,6 +32,7 @@ class CurrencyConverter:
             raise APIException(f'Количество валюты не должно быть меньше или равно "0".')
 
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-        total_base = json.loads(r.content)[keys[base]]
+        exchange_course = json.loads(r.content)[keys[base]]
+        total_amount = float(amount) * float(exchange_course)
 
-        return total_base
+        return total_amount
